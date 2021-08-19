@@ -1,0 +1,8 @@
+matplotlib
+numpy
+numpydoc
+pandas
+streamlit
+lxml>=4.5.1
+pandas_datareader>=0.4.0
+yfinance
