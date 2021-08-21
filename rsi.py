@@ -21,7 +21,7 @@ plt.style.use("bmh")
 def calculate_rsi(data):
 	close_delta = data.diff()
 	# Make two series: one for lower closes and one for higher closes
-    up = close_delta.clip(lower=0)
+	up = close_delta.clip(lower=0)
 	down = -1 * close_delta.clip(upper=0)
 
 	if ema = True:
