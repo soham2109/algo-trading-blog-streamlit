@@ -24,7 +24,7 @@ def calculate_rsi(data, ema=True):
 	up = close_delta.clip(lower=0)
 	down = -1 * close_delta.clip(upper=0)
 
-	if ema = True:
+	if ema == True:
 		# Use exponential moving average
 		ma_up = up.ewm(com = periods - 1, adjust=True, min_periods = periods).mean()
 		ma_down = down.ewm(com = periods - 1, adjust=True, min_periods = periods).mean()
