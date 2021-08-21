@@ -4,7 +4,7 @@ import streamlit as st
 import yfinance
 import pandas as pd
 import pandas_datareader as dr
-import talib
+# import talib
 import matplotlib.pyplot as plt
 
 np.random.seed(0)
@@ -17,12 +17,34 @@ stock_key_dict={"Netflix": "NFLX",
 				"Ball Corp.": "BLL"}
 plt.style.use("bmh")
 
+
+def calculate_rsi(data):
+	close_delta = data.diff()
+	# Make two series: one for lower closes and one for higher closes
+    up = close_delta.clip(lower=0)
+	down = -1 * close_delta.clip(upper=0)
+
+	if ema = True:
+		# Use exponential moving average
+		ma_up = up.ewm(com = periods - 1, adjust=True, min_periods = periods).mean()
+		ma_down = down.ewm(com = periods - 1, adjust=True, min_periods = periods).mean()
+	else:
+		# Use simple moving average
+		ma_up = up.rolling(window = periods, adjust=False).mean()
+		ma_down = down.rolling(window = periods, adjust=False).mean()
+
+	rsi = ma_up / ma_down
+	rsi = 100 - (100/(1 + rsi))
+	return rsi
+
+
 def get_data(stock):
 	today = '{}'.format(date.today())
 	data = yfinance.download(stock,
 							 '2018-1-1',
 							 end=today)
-	rsi = talib.RSI(data["Close"])
+	# rsi = talib.RSI(data["Close"])
+	rsi = calculate_rsi(data["Close"])
 	return rsi, data
 
 
@@ -42,7 +64,7 @@ The RSI measures the magnitude of recent price changes and is used to determine 
 						  options=['Netflix', 'Microsoft', 'Google', 'Apple', 'Tesla', 'Ball Corp.']
 						  )
 	stock_name = stock_key_dict[stocks]
-
+	rsi, data = get_data(stock_name)
 
 if __name__=="__main__":
 	app()
