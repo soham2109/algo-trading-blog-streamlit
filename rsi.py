@@ -19,7 +19,7 @@ stock_key_dict={"Netflix": "NFLX",
 plt.style.use("bmh")
 
 
-def calculate_rsi(data, ema=True):
+def calculate_rsi(data, periods = 14, ema=True):
 	close_delta = data.diff()
 	# Make two series: one for lower closes and one for higher closes
 	up = close_delta.clip(lower=0)
