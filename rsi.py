@@ -3,6 +3,7 @@ from datetime import date
 import streamlit as st
 import yfinance
 import pandas as pd
+import numpy as np
 import pandas_datareader as dr
 # import talib
 import matplotlib.pyplot as plt
