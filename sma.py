@@ -17,6 +17,16 @@ stock_key_dict={"Netflix": "NFLX",
 plt.style.use("bmh")
 
 
+def max_width(prcnt_width:int = 75):
+    max_width_str = f"max-width: {prcnt_width}%;"
+    st.markdown(f"""
+                <style>
+                .reportview-container .main .block-container{{{max_width_str}}}
+                </style>
+                """,
+                unsafe_allow_html=True,
+    )
+
 @st.cache()
 def get_data(stock):
 	nflx_ticker = yf.Ticker(stock)
@@ -91,12 +101,16 @@ def return_plot(nflx, SMA20, SMA50, crossovers, label):
 
 
 def app():
+	max_width(80)
 	st.title("Simple Moving Average (SMA)")
 	st.markdown("---")
 	markdown="""
-A simple moving average (SMA) is calculated by adding all the data for a specific period and dividing the total by the number of days. They are considered to be particularly useful in upward or downward trending markets.
+A simple moving average (SMA) is calculated by adding all the data for a specific period and dividing the total by the number of days. They are considered to be particularly useful in upward or downward trending markets. When asset prices cross over their moving averages, it may generate a trading signal for technical traders. A general rule of thumb among traders is that if a stock price is above its 200-days moving average, the trend is bullish (i.e., the price rises). So they are often looking for stocks whose price is above the 200-periods SMA.
 
-When asset prices cross over their moving averages, it may generate a trading signal for technical traders. A general rule of thumb among traders is that if a stock price is above its 200-days moving average, the trend is bullish (i.e., the price rises). So they are often looking for stocks whose price is above the 200-periods SMA.
+**Formula**
+
+$SMA = \\frac{1}{n}\sum_{i=1}^{n}Price_i$, where $n$=Time Period.
+
 
 A straightforward example of an Algo trading system would :
 
